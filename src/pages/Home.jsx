@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { getMovies } from "../api/movie"; 
 import MovieCard from "../components/MovieCard";
-
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,50 +19,43 @@ const Home = () => {
     fetchMovies();
   }, []);
 
+  const handleDelete = (title) => {
+    setMovies(movies.filter((movie) => movie.title !== title)); // تحديث القائمة بعد الحذف
+  };
+
+  const handleEdit = (id, updatedData) => {
+    setMovies(movies.map((movie) => (movie._id === id ? { ...movie, ...updatedData } : movie))); // تحديث القائمة بعد التعديل
+  };
+
   return (
-    <div className="bg-gray-900 text-white min-h-screen p-6">
-      <motion.h1
-        className="text-4xl font-bold text-center mb-6"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+    <div className="bg-dark text-white min-vh-100 p-4">
+      <h1 className="text-center display-4 fw-bold mb-4">
         🎬 Movie App 🎥
-      </motion.h1>
+      </h1>
 
       {loading ? (
-        <motion.div
-          className="text-center text-lg animate-pulse"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-        >
+        <div className="text-center fs-5">
           ⏳ Loading movies...
-        </motion.div>
+        </div>
       ) : (
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7 }}
-        >
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
           {movies.length > 0 ? (
-            movies.map((movie) => (
-              <motion.div
-                key={movie._id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <MovieCard movie={movie} />
-              </motion.div>
+            movies.map((movie, index) => (
+              <div key={movie._id} className="col">
+                <MovieCard
+                  movie={movie}
+                  index={index}
+                  onDelete={handleDelete}
+                  onEdit={handleEdit}
+                />
+              </div>
             ))
           ) : (
-            <p className="text-center col-span-full text-gray-400">
+            <p className="text-center col-12 text-muted">
               🚫 No movies found.
             </p>
           )}
-        </motion.div>
+        </div>
       )}
     </div>
   );

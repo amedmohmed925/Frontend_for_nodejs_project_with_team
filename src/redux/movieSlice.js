@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getMovies} from "../api/movie";
-import {updateUserFavList} from "../api/movie"
+import {updateUserFavList} from "../api/FavList"
 import {updateUserWatchLater} from "../api/FavList"
 
 export const fetchMovies = createAsyncThunk("movies/fetchMovies", async (_, { rejectWithValue }) => {

@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const Navbar = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-
+  // console.log(user.name);
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -34,13 +34,13 @@ const Navbar = () => {
             </li>
             {isAuthenticated ? (
               <>
-                {user?.user?.role === "admin" && (
+                {user?.role === "admin" && (
                   <li className="nav-item">
                     <Link to="/AddMovie" className="btn btn-primary me-3">➕ إضافة فيلم</Link>
                   </li>
                 )}
                 <li className="nav-item">
-                  <span className="nav-link text-light">👤 {user?.user?.name}</span>
+                  <span className="nav-link text-light">👤 {user?.name}</span>
                 </li>
                 <li className="nav-item">
                   <button onClick={handleLogout} className="btn btn-danger ms-3">Logout</button>

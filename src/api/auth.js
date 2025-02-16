@@ -1,12 +1,4 @@
-import axios from "axios";
-
-const API = axios.create({ baseURL: "http://localhost:3000" });
-
-API.interceptors.request.use((req) => {
-  const token = localStorage.getItem("token");
-  if (token) req.headers.Authorization = `Bearer ${token}`;
-  return req;
-});
+import API from "./api";
 
 export const signUp = async (data) => {
   try {
@@ -21,6 +13,10 @@ export const signUp = async (data) => {
 export const signIn = async (data) => {
   try {
     const response = await API.post("/auth/signIn", data);
+    console.log(response.data);
+    localStorage.setItem("token", response.data.accessToken);
+    localStorage.setItem("refreshToken", response.data.refreshToken);
+
     return response.data;
   } catch (error) {
     console.error("Error signing in:", error.response?.data || error.message);
