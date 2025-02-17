@@ -12,6 +12,7 @@ import SignUp from "./pages/SignUp";
 import AddMovie from "./pages/AddMovie";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           {/* <Route path="/watch-later" element={<WatchLater />} /> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Footer />
       </Router>
     </Provider>
   );

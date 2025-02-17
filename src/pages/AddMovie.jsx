@@ -6,6 +6,7 @@ const AddMovie = () => {
   const [movie, setMovie] = useState({
     title: "",
     category: "",
+    discription:"",
     rating: "",
     poster: "",
   });
@@ -63,6 +64,17 @@ const AddMovie = () => {
             className="form-control bg-secondary text-white"
             name="category"
             value={movie.category}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Discription</label>
+          <input
+            type="text"
+            className="form-control bg-secondary text-white"
+            name="discription"
+            value={movie.discription}
             onChange={handleChange}
             required
           />

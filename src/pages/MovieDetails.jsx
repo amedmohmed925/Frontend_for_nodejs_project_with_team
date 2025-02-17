@@ -32,6 +32,7 @@ const MovieDetails = () => {
         <div className="movie-card">
           <h2 className="movie-title">{movie.title}</h2>
           <p className="movie-category">Category: {movie.category}</p>
+          <p className="">{movie.discription}</p>
           <p className="movie-rating">⭐ {movie.rating}/10</p>
         </div>
       </div>

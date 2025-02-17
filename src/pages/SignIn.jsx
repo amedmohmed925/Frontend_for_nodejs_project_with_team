@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginUser} from '../redux/authSlice';
+import { loginUser } from '../redux/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/Login.css'; // ملف الـ CSS المخصص
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -29,8 +30,8 @@ const Login = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-dark text-white">
-      <div className="card bg-secondary text-light p-4 shadow-lg w-100" style={{ maxWidth: '400px' }}>
+    <div className="login-container d-flex justify-content-center align-items-center vh-100">
+      <div className="login-card card p-4 shadow-lg">
         <h2 className="text-center mb-3">Sign In</h2>
         {error && <p className="text-danger text-center">{error}</p>}
         <form onSubmit={handleSubmit}>
@@ -43,11 +44,13 @@ const Login = () => {
           <button type="submit" className="btn btn-primary w-100">
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
-           <Link className='text-light' to={"/signup"}><span>Or Create Account?</span></Link>
+          <div className="text-center mt-3">
+            <Link className="text-light" to={"/signup"}>Or Create Account?</Link>
+          </div>
         </form>
       </div>
     </div>
   );
 };
 
-export default Login
+export default Login;

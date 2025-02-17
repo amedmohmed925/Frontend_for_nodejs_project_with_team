@@ -1,0 +1,50 @@
+.auth-container {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('https://wallpapercave.com/wp/wp5128415.jpg') no-repeat center center/cover;
+  animation: fadeIn 1.5s ease-in-out;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+.auth-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.input-focus {
+  background-color: transparent !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.input-focus:focus {
+  border-color: white !important;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5) !important;
+}
+
+.btn-hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  transition: background 0.3s ease-in-out;
+}
+
+.btn-hover:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}

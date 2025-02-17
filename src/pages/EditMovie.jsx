@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateMovie } from "../api/movie"; // استخدام نفس الدالة
+import { updateMovie } from "../api/movie"; 
 
 const EditMovie = ({ movie, onSave, onCancel }) => {
   const [updatedMovie, setUpdatedMovie] = useState({ ...movie });
@@ -25,8 +25,8 @@ const EditMovie = ({ movie, onSave, onCancel }) => {
   };
 
   return (
-    <div style={{width:"45%"}} className="position-absolute  z-3 top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex justify-content-center align-items-center">
-      <div className="bg-secondary p-4 rounded-3">
+    <div  className="position-absolute  z-3 top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex justify-content-center align-items-center">
+      <div style={{width:"40%"}} className="bg-secondary p-4 rounded-3">
         <h3 className="text-white mb-4">Edit Movie</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -36,6 +36,10 @@ const EditMovie = ({ movie, onSave, onCancel }) => {
           <div className="mb-3">
             <label className="form-label text-white">Category</label>
             <input type="text" className="form-control bg-dark text-white" name="category" value={updatedMovie.category} onChange={handleChange} required />
+          </div>
+          <div className="mb-3">
+            <label className="form-label text-white">discription</label>
+            <input type="text" className="form-control bg-dark text-white" name="discription" value={updatedMovie.discription} onChange={handleChange} required />
           </div>
           <div className="mb-3">
             <label className="form-label text-white">Rating</label>
