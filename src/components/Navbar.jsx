@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm p-3">
       <div className="container">
-        <Link to="/" className="navbar-brand fw-bold fs-4">MovieApp</Link>
+        <Link to="/" className="navbar-brand fw-bold fs-4">MovieApp - Home</Link>
         <button
           className="navbar-toggler"
           type="button"

@@ -1,13 +1,17 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaEdit, FaTrash, FaStar } from "react-icons/fa";
 import { useState } from "react";
 import axios from "axios";
-import EditMovie from "./EditMovie";
+import EditMovie from "../pages/EditMovie";
 import { updateMovie } from "../api/movie"; 
-
+import { useDispatch, useSelector } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const MovieCard = ({ movie, index, onDelete, onEdit }) => {
+  const dispatch = useDispatch();
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -48,18 +52,25 @@ const MovieCard = ({ movie, index, onDelete, onEdit }) => {
         transition={{ duration: 0.3, delay: index * 0.1 }}
         whileHover={{ scale: 1.05 }}
       >
-        <img
-          src={movie.poster}
-          alt={movie.title}
-          className="img-fluid rounded-top w-100"
-          style={{ height: "200px", objectFit: "cover" }}
-        />
+        {/* 🔹 رابط لصورة الفيلم ينقل المستخدم إلى صفحة التفاصيل */}
+        <Link to={`/movie/${movie._id}`} className="movie-link">
+          <img
+            src={movie.poster}
+            alt={movie.title}
+            className="img-fluid rounded-top w-100"
+            style={{ height: "200px", objectFit: "cover" }}
+          />
+        </Link>
+
         <div className="card-body d-flex flex-column">
           <div className="d-flex justify-content-between">
-          <h5 className="card-title text-truncate">{movie.title}</h5>
-          <p className="card-text">Category: {movie.category}</p>
-
+            {/* 🔹 رابط لعنوان الفيلم ينقل المستخدم إلى صفحة التفاصيل */}
+            <Link to={`/movie/${movie._id}`} className="text-white text-decoration-none">
+              <h5 className="card-title text-truncate">{movie.title}</h5>
+            </Link>
+            <p className="card-text">Category: {movie.category}</p>
           </div>
+          
           <div className="d-flex align-items-center">
             <span className="mx-1">{movie.rating}</span>
             <div className="mb-2">
@@ -69,7 +80,7 @@ const MovieCard = ({ movie, index, onDelete, onEdit }) => {
             </div>
           </div>
 
-          <div className="d-flex justify-content-between align-items-center mt-auto">
+          {isAuthenticated && user?.role === "admin" && (
             <div>
               <FaEdit
                 className="text-primary me-2"
@@ -82,6 +93,9 @@ const MovieCard = ({ movie, index, onDelete, onEdit }) => {
                 onClick={() => setShowDeleteModal(true)}
               />
             </div>
+          )}
+
+          <div className="d-flex justify-content-between align-items-center mt-auto">
             <button className="btn btn-warning">Watch Later</button>
           </div>
         </div>
@@ -95,54 +109,53 @@ const MovieCard = ({ movie, index, onDelete, onEdit }) => {
         />
       )}
 
-{showDeleteModal && (
-  <div
-    className="modal fade show d-flex align-items-center justify-content-center"
-    tabIndex="-1"
-    style={{
-      background: "rgba(0, 0, 0, 0.7)",
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100vw",
-      height: "100vh",
-      zIndex: 1050,
-    }}
-  >
-    <div className="modal-dialog modal-dialog-centered">
-      <div className="modal-content bg-dark text-white border border-secondary">
-        <div className="modal-header">
-          <h5 className="modal-title text-danger">Confirm Delete</h5>
-          <button
-            type="button"
-            className="btn-close btn-close-white"
-            onClick={() => setShowDeleteModal(false)}
-          ></button>
+      {showDeleteModal && (
+        <div
+          className="modal fade show d-flex align-items-center justify-content-center"
+          tabIndex="-1"
+          style={{
+            background: "rgba(0, 0, 0, 0.7)",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            zIndex: 1050,
+          }}
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content bg-dark text-white border border-secondary">
+              <div className="modal-header">
+                <h5 className="modal-title text-danger">Confirm Delete</h5>
+                <button
+                  type="button"
+                  className="btn-close btn-close-white"
+                  onClick={() => setShowDeleteModal(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <p>Are you sure you want to delete "{movie.title}"؟</p>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setShowDeleteModal(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={handleDelete}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="modal-body">
-          <p>Are You sure to Delete It "{movie.title}"؟</p>
-        </div>
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => setShowDeleteModal(false)}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-)}
-
+      )}
     </>
   );
 };

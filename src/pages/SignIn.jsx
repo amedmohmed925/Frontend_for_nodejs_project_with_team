@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginUser} from '../redux/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
@@ -43,6 +43,7 @@ const Login = () => {
           <button type="submit" className="btn btn-primary w-100">
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
+           <Link className='text-light' to={"/signup"}><span>Or Create Account?</span></Link>
         </form>
       </div>
     </div>
